@@ -1,0 +1,128 @@
+import React, { useState, useEffect } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useAuth } from "../../context/AuthContext";
+import { db } from "../../config/firbase";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
+
+const backgrounds = [
+  "https://images.unsplash.com/photo-1574017144578-85168ddb5040?q=80&w=699&auto=format&fit=crop&ixlib=rb-4.1.0",
+  "https://images.unsplash.com/photo-1550575904-40938d5a4fca?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0",
+  "https://images.unsplash.com/photo-1645856052484-2e5506e20942?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0",
+];
+
+const PageThree = () => {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  const [bgIndex, setBgIndex] = useState(0);
+
+  const [formData, setFormData] = useState({
+    education: "",
+    profession: "",
+    workAddress: "",
+    monthlyIncome: "",
+    annualIncome: "",
+  });
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const fetchUserData = async () => {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setFormData((prev) => ({ ...prev, ...docSnap.data() }));
+      }
+    };
+    fetchUserData();
+
+    const interval = setInterval(
+      () => setBgIndex((prev) => (prev + 1) % backgrounds.length),
+      6000
+    );
+    return () => clearInterval(interval);
+  }, [currentUser]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = async () => {
+    await setDoc(doc(db, "users", currentUser.uid), formData, { merge: true });
+    navigate("/details-4");
+  };
+
+  const handleBack = () => navigate("/details-2");
+
+  return (
+    <div className="relative min-h-screen flex flex-col items-center justify-center text-white px-6 py-10">
+      {/* Background Slideshow */}
+      <div className="absolute inset-0">
+        {backgrounds.map((url, i) => (
+          <div
+            key={i}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+              i === bgIndex ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ backgroundImage: `url(${url})` }}
+          ></div>
+        ))}
+        <div className="absolute inset-0 bg-black/70"></div>
+      </div>
+
+      {/* Header */}
+      <div className="relative z-10 flex items-center justify-center gap-3 mb-8">
+        <div className="bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl p-3 shadow-xl">
+          <Heart className="w-8 h-8 text-white fill-white/90" />
+        </div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
+          Professional & Financial Details
+        </h1>
+      </div>
+
+      {/* Form Fields */}
+      <div className="relative z-10 w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {[
+          { label: "Education", name: "education", type: "text" },
+          { label: "Profession", name: "profession", type: "text" },
+          { label: "Work Address", name: "workAddress", type: "text" },
+          { label: "Monthly Income", name: "monthlyIncome", type: "number" },
+          { label: "Annual Income", name: "annualIncome", type: "number" },
+        ].map((field) => (
+          <div key={field.name} className="flex flex-col">
+            <label className="text-white/90 text-base sm:text-sm font-semibold mb-1 drop-shadow-md">
+              {field.label}
+            </label>
+            <input
+              type={field.type}
+              name={field.name}
+              value={formData[field.name]}
+              onChange={handleChange}
+              placeholder={field.label}
+              className="px-4 py-3.5 rounded-xl bg-white border border-white/30 text-black placeholder-black/50 focus:ring-4 focus:ring-orange-400 outline-none"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Buttons */}
+      <div className="relative z-10 flex flex-col sm:flex-row justify-between mt-10 gap-3 w-full max-w-3xl">
+        <button
+          onClick={handleBack}
+          className="bg-gray-500/70 w-full sm:w-auto px-8 py-3 rounded-xl font-semibold hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 transition-all duration-300 shadow-md flex items-center justify-center gap-2"
+        >
+          <ArrowLeft className="w-5 h-5" /> Back
+        </button>
+        <button
+          onClick={handleSave}
+          className="bg-gradient-to-r from-orange-600 to-amber-600 w-full sm:w-auto px-8 py-3 rounded-xl font-semibold hover:from-orange-700 hover:to-amber-700 focus:ring-4 focus:ring-orange-300 transition-all duration-300 shadow-md flex items-center justify-center gap-2"
+        >
+          Next <ArrowRight className="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default PageThree;

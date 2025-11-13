@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maratha Vadhuvar - Find Your Perfect Match</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Gradient Animation */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      background: linear-gradient(270deg, #ff7e5f, #feb47b, #ff9966, #ff5e62);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      overflow-x: hidden;
+    }
+
+    /* Floating images animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(5deg); }
+    }
+
+    .float-img {
+      animation: float 6s ease-in-out infinite;
+      transition: transform 0.3s ease;
+      border-radius: 1rem;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+
+    /* Glowing particles */
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 30px 10px rgba(255,255,255,0.1);
+      animation: moveGlow 12s linear infinite;
+    }
+
+    @keyframes moveGlow {
+      from { transform: translateY(0); opacity: 0.6; }
+      to { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    /* Buttons hover */
+    .btn-anim {
+      transition: all 0.4s ease;
+    }
+
+    .btn-anim:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    }
+
+  </style>
+</head>
+<body class="relative text-white overflow-hidden">
+
+  <!-- Glowing particles -->
+  <div id="particles" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative z-10">
+  <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg z-10">
+    Welcome to <span class="text-yellow-300">Maratha Vadhuvar</span>
+  </h1>
+  <p class="text-base sm:text-lg md:text-xl max-w-3xl mb-12 text-white/90 z-10">
+    Tradition meets technology — Find your perfect Maratha match with elegance, trust, and love.
+  </p>
+
+  <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-20 z-10">
+    <a href="https://maratha-vaduvar-exe.vercel.app/login" 
+       class="btn-anim bg-white text-orange-600 font-semibold px-10 py-3 rounded-full text-lg shadow-lg hover:shadow-xl">
+      Login
+    </a>
+    <a href="https://maratha-vaduvar-exe.vercel.app/signup" 
+       class="btn-anim border-2 border-white text-white font-semibold px-10 py-3 rounded-full text-lg hover:bg-white hover:text-orange-600 shadow-lg hover:shadow-xl">
+      Sign Up
+    </a>
+  </div>
+
+  <!-- Floating Images -->
+  <img src="https://images.unsplash.com/photo-1574017121722-2c8ead5a7e90?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=800" 
+       class="float-img absolute sm:top-20 sm:left-8 top-0 left-1/2 -translate-x-1/2 w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 object-cover z-0" />
+
+  <img src="https://images.unsplash.com/photo-1645856052472-95fe99103c11?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170" 
+       class="float-img absolute sm:bottom-20 sm:right-8 bottom-0 right-1/2 -translate-x-1/2 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover z-0" />
+
+  <img src="https://images.unsplash.com/photo-1612872642947-931dc3bcb5ac?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170" 
+       class="float-img absolute sm:top-28 sm:right-1/3 top-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 sm:w-52 sm:h-52 md:w-60 md:h-60 object-cover z-0" />
+
+  <img src="https://images.unsplash.com/photo-1573951648026-fa38ff3f6770?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1054" 
+       class="float-img absolute sm:bottom-24 sm:left-1/3 bottom-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 sm:w-52 sm:h-52 md:w-60 md:h-60 object-cover z-0" />
+</section>
+
+
+  <script>
+    // Glowing particles
+    const particlesContainer = document.getElementById("particles");
+    const particleCount = 25;
+    for (let i = 0; i < particleCount; i++) {
+      const glow = document.createElement("div");
+      glow.classList.add("glow");
+      glow.style.width = `${Math.random() * 50 + 20}px`;
+      glow.style.height = glow.style.width;
+      glow.style.left = `${Math.random() * 100}%`;
+      glow.style.bottom = `${Math.random() * 100}%`;
+      glow.style.animationDuration = `${5 + Math.random() * 10}s`;
+      glow.style.animationDelay = `${Math.random() * 5}s`;
+      particlesContainer.appendChild(glow);
+    }
+
+    // Parallax effect
+    document.addEventListener("mousemove", (e) => {
+      const images = document.querySelectorAll(".float-img");
+      images.forEach((img, index) => {
+        const speed = (index + 1) * 0.02;
+        const x = (window.innerWidth - e.pageX * speed) / 60;
+        const y = (window.innerHeight - e.pageY * speed) / 60;
+        img.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    });
+
+  </script>
+</body>
+</html>
