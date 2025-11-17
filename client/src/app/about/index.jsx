@@ -5,8 +5,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 const team = [
-  { name: "Aisha Khan", role: "Founder & CEO" },
-  { name: "Rohan Mehta", role: "Co-Founder & CTO" },
+  { name: "Late Shri. Shashikant Pawar sir", role: "Founder & CEO" },
+  { name: "Suvarna Pawar", role: "President" },
   { name: "Meera Sharma", role: "Community Manager" },
 ];
 
@@ -139,7 +139,7 @@ const AboutUsPage = () => {
                 transition={{ delay: 0.2 + i * 0.1, duration: 0.8 }}
                 className="flex flex-col items-center bg-white/30 rounded-2xl p-6 backdrop-blur-sm shadow-lg hover:scale-105 transition-transform"
               >
-                <User className="w-12 h-12 text-amber-400 mb-3" />
+                <image src="logo1.png" className="w-12 h-12 text-amber-400 mb-3" />
                 <p className="font-semibold">{member.name}</p>
                 <p className="text-gray-800 text-sm">{member.role}</p>
               </motion.div>

@@ -14,10 +14,10 @@ const Footer = () => {
           <Heart className="w-12 h-12 text-amber-400 animate-pulse" />
           <h2 className="text-2xl font-bold">Maratha Vadhuvar</h2>
           <p className="text-gray-800 text-sm md:max-w-xs">
-            Bringing love and meaningful connections together since 2025
+            Bringing love and meaningful connections together since 2014
           </p>
           <p className="text-gray-600 text-xs mt-2">
-            &copy; {new Date().getFullYear()} Maratha Vadhuvar. All rights reserved.
+            &copy; {new Date().getFullYear()} RaniMaa Softwares. All rights reserved.
           </p>
         </div>
 
@@ -25,10 +25,10 @@ const Footer = () => {
         <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
           <h3 className="font-semibold text-amber-500 text-lg">Contact Us</h3>
           <div className="flex items-center gap-2 text-gray-800">
-            <Mail className="w-4 h-4 text-amber-400" /> support@marriagecode.in
+            <Mail className="w-4 h-4 text-amber-400" /> krishna.k@ranimaasoftwares.co.in
           </div>
           <div className="flex items-center gap-2 text-gray-800">
-            <Phone className="w-4 h-4 text-amber-400" /> +91 98765 43210
+            <Phone className="w-4 h-4 text-amber-400" /> +91 920 9999 750
           </div>
         </div>
 
