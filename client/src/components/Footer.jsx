@@ -28,7 +28,7 @@ const Footer = () => {
             <Mail className="w-4 h-4 text-amber-400" /> krishna.k@ranimaasoftwares.co.in
           </div>
           <div className="flex items-center gap-2 text-gray-800">
-            <Phone className="w-4 h-4 text-amber-400" /> +91 920 9999 750
+            <Phone className="w-4 h-4 text-amber-400" /> +91 8767 9767 46
           </div>
         </div>
 
