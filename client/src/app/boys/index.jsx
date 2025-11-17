@@ -155,7 +155,7 @@ function App() {
               </div>
 
               {/* Profession Dropdown */}
-              <div className="mb-8">
+              {/* <div className="mb-8">
                 <label className="text-gray-800 font-semibold mb-4 block">Profession</label>
                 <select
                   value={selectedProfession}
@@ -169,10 +169,10 @@ function App() {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
 
               {/* Hobbies */}
-              <div>
+              {/* <div>
                 <label className="text-gray-800 font-semibold mb-4 block">Interests & Hobbies</label>
                 <div className="flex flex-wrap gap-3">
                   {hobbies.map((hobby) => (
@@ -189,7 +189,7 @@ function App() {
                     </button>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

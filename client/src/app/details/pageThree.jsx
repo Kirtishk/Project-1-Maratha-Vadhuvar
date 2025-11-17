@@ -57,6 +57,7 @@ const PageThree = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center text-white px-6 py-10">
+
       {/* Background Slideshow */}
       <div className="absolute inset-0">
         {backgrounds.map((url, i) => (
@@ -81,10 +82,42 @@ const PageThree = () => {
         </h1>
       </div>
 
-      {/* Form Fields */}
+      {/* Education Radio Buttons */}
+      <div className="relative z-10 w-full max-w-3xl mb-6">
+        <label className="text-white/90 text-base sm:text-sm font-semibold mb-2 block drop-shadow-md">
+          Education
+        </label>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-white/10 p-4 rounded-xl">
+          {[
+            "10th Pass",
+            "12th Pass",
+            "Graduate",
+            "Post Graduate",
+            "PhD",
+            "Other",
+          ].map((option) => (
+            <label
+              key={option}
+              className="flex items-center gap-3 cursor-pointer text-white/90"
+            >
+              <input
+                type="radio"
+                name="education"
+                value={option}
+                checked={formData.education === option}
+                onChange={handleChange}
+                className="w-5 h-5"
+              />
+              {option}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Other Form Fields */}
       <div className="relative z-10 w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-5">
         {[
-          { label: "Education", name: "education", type: "text" },
           { label: "Profession", name: "profession", type: "text" },
           { label: "Work Address", name: "workAddress", type: "text" },
           { label: "Monthly Income", name: "monthlyIncome", type: "number" },
