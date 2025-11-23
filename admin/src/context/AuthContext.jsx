@@ -19,8 +19,10 @@ export function AuthProvider({ children }) {
   const login = (email, password) => {
     const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
     const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+    const admin2= import.meta.env.VITE_ADMIN2_EMAIL;
+    const admin2Password = import.meta.env.VITE_ADMIN2_PASSWORD;
 
-    if (email === adminEmail && password === adminPassword) {
+    if (email === adminEmail && password === adminPassword || email === admin2 && password === admin2Password) {
       const user = { email, role: "admin" };
       setCurrentUser(user);
       localStorage.setItem("adminUser", JSON.stringify(user));
