@@ -1,0 +1,97 @@
+Supabase Migration Steps (Client + Admin)
+Date: 2026-05-06
+
+1) Create Supabase project
+- Go to https://supabase.com and create a new project.
+- Copy:
+  - Project URL
+  - anon public key
+
+2) Create users table (required)
+- Open Supabase SQL Editor and run:
+
+create table if not exists public.users (
+  id text primary key,
+  uid text,
+  email text,
+  name text,
+  isNew boolean default true,
+  isPaid boolean default false,
+  profileImage text,
+  payment jsonb,
+  createdAt timestamptz default now(),
+  updatedAt timestamptz default now()
+);
+
+3) Enable Row Level Security and basic policies
+- In SQL Editor run:
+
+alter table public.users enable row level security;
+
+create policy "Users can read own row"
+on public.users
+for select
+using (auth.uid()::text = id);
+
+create policy "Users can insert own row"
+on public.users
+for insert
+with check (auth.uid()::text = id);
+
+create policy "Users can update own row"
+on public.users
+for update
+using (auth.uid()::text = id)
+with check (auth.uid()::text = id);
+
+-- For admin panel listing users, either:
+-- A) Use service role key only in backend/admin server (recommended)
+-- B) Or create broader read policy carefully.
+
+4) Configure Supabase Auth for password recovery
+- In Supabase Dashboard:
+  - Authentication -> URL Configuration
+  - Add Site URL(s):
+    - http://localhost:5173
+    - your production client URL
+  - Add Redirect URL(s):
+    - http://localhost:5173/reset-password
+    - your production/reset-password URL
+
+5) Update env files
+- client/.env
+  VITE_SUPABASE_URL=your_project_url
+  VITE_SUPABASE_ANON_KEY=your_anon_key
+  VITE_RESET_PASSWORD_REDIRECT_URL=http://localhost:5173/reset-password
+
+- admin/.env
+  VITE_SUPABASE_URL=your_project_url
+  VITE_SUPABASE_ANON_KEY=your_anon_key
+
+6) Install dependencies
+- In client:
+  npm install
+- In admin:
+  npm install
+
+7) Run apps
+- client:
+  npm run dev
+- admin:
+  npm run dev
+
+8) Test forgot-password flow
+- Open client login page.
+- Enter email and click "Forgot password?"
+- Open email from Supabase and click recovery link.
+- It should open /reset-password.
+- Set new password and login.
+
+9) Data migration from Firebase to Supabase
+- Export Firebase users collection.
+- Transform each row so Firebase uid maps to Supabase users.id.
+- Import into public.users (CSV or script).
+
+Important
+- Existing Firebase auth users do NOT automatically migrate to Supabase auth.
+- Users may need to re-register or you need a one-time migration strategy.

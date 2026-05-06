@@ -3,12 +3,10 @@ import { Mail, Lock, Eye, EyeOff, ArrowRight, Heart, Sparkles, Flower as FlowerI
 import { img2 } from "../../../assets";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../../../config/firbase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "../../../lib/firestoreCompat";
 import { useAuth } from "../../../context/AuthContext";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "../../../lib/authCompat";
 import { toast } from 'react-toastify';
-import { onAuthStateChanged } from "firebase/auth";
-
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -17,8 +15,9 @@ function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [bgIndex, setBgIndex] = useState(0);
-  const navigate = useNavigate()
-  const {currentUser} = useAuth
+  const [resetLoading, setResetLoading] = useState(false);
+  const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   const backgrounds = [
     "https://images.unsplash.com/photo-1573890697396-eed65fd271cf?q=80&w=1013&auto=format&fit=crop",
@@ -26,73 +25,75 @@ function Login() {
     "https://images.unsplash.com/photo-1609150370455-8beb3e7d35f4?q=80&w=1170&auto=format&fit=crop",
   ];
 
-  
-
-
   useEffect(() => {
     const interval = setInterval(() => {
       setBgIndex((prev) => (prev + 1) % backgrounds.length);
     }, 7000);
     return () => clearInterval(interval);
-
-    
   }, []);
 
   useEffect(() => {
-
-    onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("✅ Logged in as:", user.uid);
-  } else {
-    console.log("❌ Not logged in");
-  }
-});
-  const checkUser = async () => {
-    if (currentUser) {
+    const checkUser = async () => {
+      if (!currentUser) return;
       const docRef = doc(db, "users", currentUser.uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists() && docSnap.data().isNew) {
-        navigate("/details-1"); // redirect new users
+        navigate("/details-1");
       } else {
-        navigate("/dashboard"); // existing users
+        navigate("/dashboard");
       }
-    }
-  };
+    };
 
-  checkUser();
-}, [currentUser, navigate]);
-
+    checkUser();
+  }, [currentUser, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-    // Check Firestore
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists() && docSnap.data().isNew) {
-      navigate("/details-1");
-      toast.warn("Please fill the details")
-    } else {
-      navigate("/dashboard");
-      toast.success(`Sucessfully logged in as ${user.displayName}`)
+      if (docSnap.exists() && docSnap.data().isNew) {
+        navigate("/details-1");
+        toast.warn("Please fill the details");
+      } else {
+        navigate("/dashboard");
+        toast.success(`Sucessfully logged in as ${user.displayName}`);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    toast.error(err.message)
-    setLoading(false)
-  }
   };
 
+  const handleForgotPassword = async () => {
+    if (!email) {
+      toast.warn("Enter your email first.");
+      return;
+    }
+
+    setResetLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email, {
+        url: import.meta.env.VITE_RESET_PASSWORD_REDIRECT_URL || `${window.location.origin}/reset-password`,
+      });
+      toast.success("Password reset request accepted.");
+    } catch (err) {
+      toast.error(err.message || "Failed to process reset request");
+    } finally {
+      setResetLoading(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen w-full text-slate-800 overflow-hidden flex flex-col justify-center items-center">
-      {/* Background */}
       <div className="absolute inset-0 w-full h-full">
         {backgrounds.map((url, i) => (
           <div
@@ -106,9 +107,7 @@ function Login() {
         <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-orange-900/40 via-amber-900/30 to-yellow-900/40"></div>
       </div>
 
-      {/* Content */}
       <div className="relative z-10 w-full max-w-md mx-4 px-4 sm:px-0 space-y-6 sm:space-y-8">
-        {/* Title */}
         <div className="text-center space-y-3 sm:space-y-4">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-white drop-shadow-lg">
             Maratha <span className="text-orange-400">Vadhuvar</span>
@@ -118,22 +117,14 @@ function Login() {
             <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-300" />
             <div className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent via-orange-300 to-transparent"></div>
           </div>
-          <p className="text-white/90 text-base sm:text-lg font-light italic">
-            Where Hearts Unite Forever
-          </p>
+          <p className="text-white/90 text-base sm:text-lg font-light italic">Where Hearts Unite Forever</p>
         </div>
 
-        {/* Welcome */}
         <div className="text-center space-y-1 sm:space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white drop-shadow-md">
-            Welcome Back
-          </h2>
-          <p className="text-white/80 text-sm font-light">
-            Continue your journey to forever
-          </p>
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white drop-shadow-md">Welcome Back</h2>
+          <p className="text-white/80 text-sm font-light">Continue your journey to forever</p>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
           {error && (
             <div className="bg-red-100 border-2 border-red-300 text-red-800 px-3 py-2 sm:px-4 sm:py-3 rounded-xl text-xs sm:text-sm text-center font-medium shadow-lg">
@@ -141,7 +132,6 @@ function Login() {
             </div>
           )}
 
-          {/* Email */}
           <div className="relative">
             <Mail className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
             <input
@@ -154,7 +144,6 @@ function Login() {
             />
           </div>
 
-          {/* Password */}
           <div className="relative">
             <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
             <input
@@ -168,13 +157,24 @@ function Login() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
               className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-orange-600 hover:text-orange-700 transition-colors"
             >
               {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
 
-          {/* Submit */}
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              disabled={resetLoading}
+              className="text-sm text-white/90 hover:text-white underline underline-offset-2 disabled:opacity-60"
+            >
+              {resetLoading ? "Checking account..." : "Forgot password?"}
+            </button>
+          </div>
+
           <button
             type="submit"
             disabled={loading}
@@ -191,7 +191,6 @@ function Login() {
           </button>
         </form>
 
-        {/* Bottom text */}
         <div className="text-center pb-4">
           <p className="text-white/80 text-xs sm:text-sm font-light italic flex items-center gap-2 justify-center">
             <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-orange-300" fill="currentColor" />

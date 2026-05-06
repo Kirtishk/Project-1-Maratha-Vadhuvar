@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../config/firbase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "../../lib/firestoreCompat";
 import Navbar from "../../components/Navbar";
 import HeroSection from "../../components/HeroSection";
 import Footer from "../../components/Footer";
@@ -39,3 +39,4 @@ const Home = () => {
 };
 
 export default Home;
+

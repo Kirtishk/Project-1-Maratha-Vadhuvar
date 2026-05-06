@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { CheckCircle2, XCircle, Mail, Phone, IndianRupee, Users, Loader2 } from "lucide-react";
 import { db } from "../../config/firebase.js"; // your firebase config
-import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { collection, doc, getDocs, query, updateDoc, where } from "../../lib/firestoreCompat";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
-const BACKENT_API =import.meta.env.VITE_BACKEND_URL
+import { SEND_EMAIL_API_URL } from "../../constants/backend";
 
 
 const Home = () => {
@@ -49,7 +48,7 @@ const Home = () => {
 
   const sendEmail = async (to, subject, html) => {
     try {
-      const response = await fetch(BACKENT_API, {
+      const response = await fetch(SEND_EMAIL_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ to, subject, html }),
@@ -237,3 +236,4 @@ const Home = () => {
 };
 
 export default Home;
+

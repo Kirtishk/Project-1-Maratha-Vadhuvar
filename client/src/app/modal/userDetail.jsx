@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "../../lib/firestoreCompat";
 import { db } from '../../config/firbase';
 import { X, ChevronLeft, ChevronRight, ArrowLeft, User, Mail, Phone, MapPin, Calendar, Clock, Droplet, Briefcase, Users, Heart, Star, Home, Sparkles } from "lucide-react";
 import Navbar from "../../components/Navbar";
@@ -362,3 +362,4 @@ const UserDetailsPage = () => {
 };
 
 export default UserDetailsPage;
+
