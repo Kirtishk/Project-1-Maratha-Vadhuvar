@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node index.js",
     "start": "node index.js",
+    "migrate:users": "node migrate-users-to-supabase.js",
     "test": "echo \"No tests configured\""
   },
   "keywords": [],
@@ -16,6 +17,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "firebase-admin": "^13.8.0",
     "nodemailer": "^7.0.9"
   }
 }

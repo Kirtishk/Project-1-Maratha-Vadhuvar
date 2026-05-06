@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "maratha-vaduvar",
+  "private_key_id": "1427a56c5d51ad39ac81b485df0be159bcd9f7c5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDXXBWvGz/tOsgl\nC5WgIIbbEKIwW7LWJWzHw953AU7ivIM7Bep7v1DyeBMRbgId7kOK/62vR/GjAm91\nrL5NRoItgnZwUSpZUKbCUnOyIxcCxB4rWL2aE3PBOqqgBDEl/5obZ3ExK6CBscWT\nY3UEoEwvI8w2XKWSjKTa08tQOf+GfN+fKeiwvMqASw8LpxT8u1gk/xuyq6IUhOKW\n/+dBzfx4/7iTBxuTqBepGfaRUhP5EYWTeihLJxZ/e+LmK7+soyIzdNQzX9kRlLPf\nPacaz0XwgBttYBaNLtM4Y5AyYJQQBEU6XaSes0ob5XJII+/snUatQvMesxKtLNY2\n8dXg5kNxAgMBAAECggEABk4NLyHebpTjTyerqxMeCkPOZm6zfvl8LyJY3PsOKC0v\nWlxYpQ7Q0TMau86QrqJPGpP/AxFZeFWV6x1c5OjviWLhvMq43AHfH/PyAdZtJ14+\nfokL4/rgegO8WGWcWr8aRTseC+Z5vdJKin9wPuvCeeQpEl5b/+ew29yKKJXKGVHO\nJKov6+Z60Xoc8s4zYxJKTOqek50Jr/RArr0hywKtXlEFoQFmGqIjt7+AT1RXZ+4+\nqZsR55nSeSeowkphtseLZaZy/O4drtTPrpegaHVvT13ZpeEzx2qiyRJJFI/hd3xU\n1TTrxFOnmx3IYD2Rdh8CSpAvLDWN5z3/bWGha7ysEQKBgQD42MQD2h3OwN7qbuEd\nmhDdWu+gU7RqvF4EprX0rg7G7Fjev4SbMxwgHrAATeKYQV1eZmdTzTnGhYp2Sx+e\nAx33IF81lnkDgnA3qZpUm9GWvUI5pkbnpM9Yk3ASBHTiaZwIJ9B17WdiWs5yVFkv\nniMFne5sNfdetTesuUyqz9WFiwKBgQDdjORNsxOAd8gmcl5QKpTFQgVov8uifIpo\nH+b2pl0ijy3ioPAHk+1/vThR3Ff9uibowK2rZWm+luxdlGbcTbur5ML8+8DyyVba\nCwiudawO+2dgH6syYhdQKjv3qW8R+que5BAqbzHDRUNdb7UtC7OpRzd5sSGJWAme\nz4Q9B7aScwKBgQDFSWWuACEdp7+TcTC8fUbdl5jfLT2eWZTYbytWvyAsCXkzr/b7\n7Hth47J5q0X4m+ngS6OjxtMFVx49RrXcWnBJWrrhC1kJtUIufyJB7f8uWQHGHtOc\nFwfkG5AAWNQqJLx1ossck4khawi9j63dmKv/agR6ehaSWW24XHgx+/A2nQKBgQC0\nWS28Bmt4p4k5qt4VeiQy00Sd+Ysl0SXGDzovTEwChvU+R+487PFni7vd/3VtaOyl\nibuWC27iI+9zWgvFiE2eZxFHaRSvTrCxvEur4MRYSdTkDcOJtwntSwQX3kg5JYox\nRMvYDz4+DBMDa5zbd2wf/4YsPMHlENJ8AcdO+wlm+wKBgQDz31xjd/AQk6VgTmet\n3TtACWuSNRLzLzXDNkS6HpFXqJaJd6M2UT0qc5tWjb3n0orbNbDkqelfKDNzA64U\nViPIpMHCAqiofDWi45DuNSJgU4kz/8O4asRCOcbT1fK8zhX8dj5KL9FT5TYwzyzA\n5qG7BuNHxyIgCjRobCGoMk8N2A==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@maratha-vaduvar.iam.gserviceaccount.com",
+  "client_id": "111639890482079577490",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40maratha-vaduvar.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
