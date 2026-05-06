@@ -4,10 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maratha Vadhuvar - Find Your Perfect Match</title>
+  <link rel="preload" href="https://res.cloudinary.com/dffpkros0/video/upload/v1763399184/sikynb1sv9vzfgajpzli.mp4" as="video" type="video/mp4">
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* Background Video */
+    :root {
+      --bg-fallback: radial-gradient(circle at 20% 15%, #6a2f0a 0%, #311006 45%, #140803 100%);
+      --card-bg: rgba(18, 11, 7, 0.58);
+      --card-border: rgba(255, 227, 177, 0.35);
+      --text-main: #fff6e8;
+      --text-soft: #ffe6c8;
+      --accent: #f6c26f;
+      --poster-url: url("https://res.cloudinary.com/dffpkros0/video/upload/so_1/sikynb1sv9vzfgajpzli.jpg");
+    }
+
+    body {
+      font-family: "Segoe UI", "Noto Sans", Arial, sans-serif;
+      color: var(--text-main);
+      background: var(--bg-fallback);
+      overflow-x: hidden;
+    }
+
+    #bg-poster {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: var(--poster-url);
+      background-size: cover;
+      background-position: center;
+      opacity: 0.85;
+      transition: opacity 400ms ease;
+    }
+
+    #bg-poster.hide {
+      opacity: 0;
+    }
+
     #bg-video {
       position: fixed;
       top: 0;
@@ -16,58 +48,111 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
-      opacity: 0.8;
-
+      opacity: 0;
+      transition: opacity 500ms ease;
+      will-change: opacity;
     }
+
+    #bg-video.ready {
+      opacity: 0.78;
+    }
+
     #video-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.45); /* darkness level */
-  z-index: -1;
-}
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(150deg, rgba(40, 13, 3, 0.74), rgba(20, 8, 3, 0.54)),
+        radial-gradient(circle at 75% 20%, rgba(255, 174, 82, 0.15), transparent 40%);
+      z-index: -1;
+    }
+
+    .hero-title {
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      letter-spacing: 0.01em;
+    }
+
+    .glass-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
     .btn-anim {
-      transition: all 0.4s ease;
+      transition: transform 250ms ease, box-shadow 250ms ease, background-color 250ms ease, color 250ms ease;
     }
 
     .btn-anim:hover {
-      transform: scale(1.1) translateY(-2px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 600ms ease forwards;
+    }
+
+    .delay-1 { animation-delay: 120ms; }
+    .delay-2 { animation-delay: 260ms; }
+    .delay-3 { animation-delay: 420ms; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 
-<body class="relative text-white overflow-hidden">
-
-  <!-- Background Video -->
-  <video autoplay loop muted playsinline id="bg-video">
+<body class="relative">
+  <div id="bg-poster" aria-hidden="true"></div>
+  <video autoplay loop muted playsinline preload="auto" poster="https://res.cloudinary.com/dffpkros0/video/upload/so_1/sikynb1sv9vzfgajpzli.jpg" id="bg-video">
     <source src="https://res.cloudinary.com/dffpkros0/video/upload/v1763399184/sikynb1sv9vzfgajpzli.mp4" type="video/mp4">
   </video>
   <div id="video-overlay"></div>
 
+  <section class="min-h-screen flex items-center justify-center px-4 py-10 relative z-10">
+    <div class="glass-panel rounded-3xl w-full max-w-4xl px-6 py-10 sm:px-10 sm:py-12 text-center">
+      <p class="fade-up text-xs sm:text-sm tracking-[0.18em] uppercase text-amber-100/90">Maratha Matrimony Platform</p>
+      <h1 class="hero-title fade-up delay-1 text-4xl sm:text-5xl md:text-6xl font-semibold mt-3 mb-5 leading-tight">
+        Welcome to <span style="color: var(--accent)">Maratha Vadhuvar</span>
+      </h1>
 
-  <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative z-10">
-  <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg z-10">
-      Welcome to <span class="text-yellow-300">Maratha Vadhuvar</span>
-    </h1>
+      <p class="fade-up delay-2 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10" style="color: var(--text-soft);">
+        Tradition meets technology. Find your perfect Maratha match with trust, dignity, and warmth.
+      </p>
 
-    <p class="text-base sm:text-lg md:text-xl max-w-3xl mb-12 text-white/90 z-10">
-      Tradition meets technology — Find your perfect Maratha match with elegance, trust, and love.
-    </p>
-
-    <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-20 z-10">
-      <a href="https://maratha-vaduvar-exe.vercel.app/login" 
-        class="btn-anim bg-white text-orange-600 font-semibold px-10 py-3 rounded-full text-lg shadow-lg hover:shadow-xl">
-        Login
-      </a>
-      <a href="https://maratha-vaduvar-exe.vercel.app/signup" 
-        class="btn-anim border-2 border-white text-white font-semibold px-10 py-3 rounded-full text-lg hover:bg-white hover:text-orange-600 shadow-lg hover:shadow-xl">
-        Sign Up
-      </a>
+      <div class="fade-up delay-3 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+        <a href="https://maratha-vadhuvar.vercel.app/login"
+          class="btn-anim bg-amber-300 text-amber-950 font-semibold px-10 py-3 rounded-full text-lg">
+          Login
+        </a>
+        <a href="https://maratha-vadhuvar.vercel.app/signup"
+          class="btn-anim border border-amber-100/80 text-amber-50 font-semibold px-10 py-3 rounded-full text-lg hover:bg-amber-50 hover:text-amber-950">
+          Sign Up
+        </a>
+      </div>
     </div>
   </section>
+
+  <script>
+    const video = document.getElementById("bg-video");
+    const poster = document.getElementById("bg-poster");
+    if (video) {
+      const markReady = () => {
+        video.classList.add("ready");
+        if (poster) poster.classList.add("hide");
+      };
+      video.addEventListener("loadeddata", markReady, { once: true });
+      video.addEventListener("canplay", markReady, { once: true });
+      video.addEventListener("playing", markReady, { once: true });
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(markReady).catch(() => {});
+      }
+    }
+  </script>
 </body>
 </html>

@@ -7,6 +7,7 @@
     "dev": "node index.js",
     "start": "node index.js",
     "migrate:users": "node migrate-users-to-supabase.js",
+    "send:bulk-reset": "node send-bulk-reset-emails.js",
     "test": "echo \"No tests configured\""
   },
   "keywords": [],
