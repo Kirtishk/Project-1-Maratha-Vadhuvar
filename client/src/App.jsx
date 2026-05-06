@@ -8,6 +8,7 @@ import Home from "./app/home/index";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Login from "./app/auth/login/index";
 import Signup from "./app/auth/signup";
+import ResetPassword from "./app/auth/reset-password";
 import PageTwo from "./app/details/pageTwo";
 import PageThree from "./app/details/pageThree";
 import PageOne from "./app/details/pageOne";
@@ -50,6 +51,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route
             path="/details-1"

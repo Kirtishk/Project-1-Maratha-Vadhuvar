@@ -1,5 +1,5 @@
   import React, { useEffect, useState } from "react";
-  import { collection, getDocs, query, orderBy } from "firebase/firestore";
+  import { collection, getDocs, query, orderBy } from "../lib/firestoreCompat";
   import { useNavigate } from "react-router-dom";
 
   import { Users, ChevronLeft, ChevronRight, Loader2, MapPin, Mail, Heart } from "lucide-react";
@@ -210,3 +210,4 @@
   };
 
   export default UserProfiles;
+

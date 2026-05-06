@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, doc, updateDoc,query, where } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc,query, where } from "../../lib/firestoreCompat";
 import { db } from "../../config/firebase.js";
 import { Users as UsersIcon, CheckCircle2, Clock, Mail, Phone, User, XCircle } from "lucide-react";
 import { toast } from "react-toastify";
@@ -255,3 +255,4 @@ useEffect(() => {
 };
 
 export default Users;
+

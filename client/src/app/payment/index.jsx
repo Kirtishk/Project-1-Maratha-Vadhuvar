@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { doc, setDoc, serverTimestamp, onSnapshot } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp, onSnapshot } from "../../lib/firestoreCompat";
 import { db } from "../../config/firbase";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -125,3 +125,4 @@ export default function Payment() {
     </div>
   );
 }
+

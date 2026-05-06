@@ -1,11 +1,11 @@
 // Signup.jsx
 import React, { useEffect, useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "../../../lib/authCompat";
 import { auth, db } from "../../../config/firbase.js";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext.jsx";
-import { doc, setDoc,getDocs, query, where, collection, getDoc } from "firebase/firestore";
-import { Heart, Mail, Lock, ArrowRight, Sparkles } from "lucide-react";
+import { doc, getDocs, query, where, collection, getDoc } from "../../../lib/firestoreCompat";
+import { Heart, Mail, Lock, ArrowRight, Sparkles, Eye, EyeOff } from "lucide-react";
 import { toast } from "react-toastify";
 
 function Signup() {
@@ -14,6 +14,8 @@ function Signup() {
   const [cfmPassword, setCfmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
   const { currentUser } = useAuth();
@@ -89,15 +91,6 @@ function Signup() {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: user.email,
-      name: user.displayName  ,
-      isNew: true,
-      isPaid: false,
-      createdAt: new Date(),
-    });
-
     toast.success("Registered successfully!");
     navigate("/details-1");
   } catch (err) {
@@ -166,26 +159,42 @@ function Signup() {
           <div className="relative">
             <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base rounded-xl bg-white/95 backdrop-blur-sm border-2 border-orange-300 text-slate-800 placeholder-slate-500 focus:border-orange-500 focus:ring-4 focus:ring-orange-200 outline-none transition-all duration-300 shadow-lg font-medium"
+              className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-sm sm:text-base rounded-xl bg-white/95 backdrop-blur-sm border-2 border-orange-300 text-slate-800 placeholder-slate-500 focus:border-orange-500 focus:ring-4 focus:ring-orange-200 outline-none transition-all duration-300 shadow-lg font-medium"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-orange-600 hover:text-orange-700 transition-colors"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
+            </button>
           </div>
 
           {/* Confirm Password */}
           <div className="relative">
             <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
             <input
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
               value={cfmPassword}
               onChange={(e) => setCfmPassword(e.target.value)}
               required
-              className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base rounded-xl bg-white/95 backdrop-blur-sm border-2 border-orange-300 text-slate-800 placeholder-slate-500 focus:border-orange-500 focus:ring-4 focus:ring-orange-200 outline-none transition-all duration-300 shadow-lg font-medium"
+              className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-sm sm:text-base rounded-xl bg-white/95 backdrop-blur-sm border-2 border-orange-300 text-slate-800 placeholder-slate-500 focus:border-orange-500 focus:ring-4 focus:ring-orange-200 outline-none transition-all duration-300 shadow-lg font-medium"
             />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+              className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-orange-600 hover:text-orange-700 transition-colors"
+            >
+              {showConfirmPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
+            </button>
           </div>
 
           {/* Button */}
@@ -217,3 +226,5 @@ function Signup() {
 }
 
 export default Signup;
+
+

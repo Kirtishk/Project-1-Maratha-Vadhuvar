@@ -1,22 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { createClient } from "@supabase/supabase-js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAwuCFhF2IMvENx-cFFSXxzB-54XBKatMU",
-  authDomain: "maratha-vaduvar.firebaseapp.com",
-  projectId: "maratha-vaduvar",
-  storageBucket: "maratha-vaduvar.firebasestorage.app",
-  messagingSenderId: "1068966628271",
-  appId: "1:1068966628271:web:df5472db2a102a920e7d5a"
-};
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-export {
-    db,
-    auth
-}
-
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const db = supabase;
+export const auth = supabase.auth;

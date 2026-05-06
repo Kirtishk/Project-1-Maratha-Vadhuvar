@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "../lib/firestoreCompat";
 import { db } from "../config/firbase";
 
 const PaidRoute = ({ children }) => {
@@ -49,3 +49,4 @@ const PaidRoute = ({ children }) => {
 };
 
 export default PaidRoute;
+

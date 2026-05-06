@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "../../lib/firestoreCompat";
 import { Users, Filter, Search } from "lucide-react";
 import { db } from "../../config/firbase";
 import { useNavigate } from "react-router-dom";
@@ -265,3 +265,4 @@ function App() {
 }
 
 export default App;
+

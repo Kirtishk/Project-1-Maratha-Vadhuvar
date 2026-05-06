@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "../../lib/firestoreCompat";
 import { db } from "../../config/firbase";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -96,3 +96,4 @@ useEffect(() => {
 };
 
 export default Pending;
+

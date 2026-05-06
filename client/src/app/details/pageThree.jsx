@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "../../lib/firestoreCompat";
 import { useAuth } from "../../context/AuthContext";
 import { db } from "../../config/firbase";
 import { useNavigate } from "react-router-dom";
@@ -159,3 +159,4 @@ const PageThree = () => {
 };
 
 export default PageThree;
+

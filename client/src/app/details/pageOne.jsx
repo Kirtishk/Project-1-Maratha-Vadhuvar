@@ -1,6 +1,6 @@
 // PageOne.jsx
 import React, { useEffect, useState } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "../../lib/firestoreCompat";
 import { uploadFileToCloudinary } from "../../lib";
 import { useAuth } from "../../context/AuthContext";
 import { db } from "../../config/firbase";
@@ -218,3 +218,4 @@ function PageOne() {
 }
 
 export default PageOne;
+

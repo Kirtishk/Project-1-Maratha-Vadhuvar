@@ -18,7 +18,7 @@ import {
   Image,
   Trash2,
 } from "lucide-react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "../../lib/firestoreCompat";
 import { useAuth } from "../../context/AuthContext";
 import { db } from "../../config/firbase";
 import { uploadFileToCloudinary } from "../../lib";
@@ -831,3 +831,4 @@ function App() {
 }
 
 export default App;
+
