@@ -25,7 +25,7 @@ const Footer = () => {
         <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
           <h3 className="font-semibold text-amber-500 text-lg">Contact Us</h3>
           <div className="flex items-center gap-2 text-gray-800">
-            <Mail className="w-4 h-4 text-amber-400" /> krishna.k@ranimaasoftwares.co.in
+            <Mail className="w-4 h-4 text-amber-400" /> Suvarna Pawar
           </div>
           <div className="flex items-center gap-2 text-gray-800">
             <Phone className="w-4 h-4 text-amber-400" /> +91 8767 9767 46
@@ -60,7 +60,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="mt-10 border-t border-white/30 pt-6 text-center text-gray-700 text-sm">
-        Made with ❤️ by Maratha Vadhuvar Team
+        Made with ❤️ by RaniMaa Softwares
       </div>
     </footer>
   );
